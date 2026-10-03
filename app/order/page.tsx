@@ -26,17 +26,8 @@ export default function OrderPage() {
   const [cartToast, setCartToast] = useState<string | null>(null);
   const [showUserDetails, setShowUserDetails] = useState(false);
 
-  // Dynamic User Info from AppContext
   const userEmail = user?.email || 'guest@example.com';
   const userName = user?.name || 'Guest User';
-
-  const allocatedCard = {
-    code: 'NANO-BOOST-2',
-    value: 250,
-    validTill: '31 Mar 2026',
-    assignedTo: 'Pack of 2',
-    note: 'Card already mapped to this order',
-  };
 
   const subtotal = cartItems.reduce((acc, item) => {
     const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
@@ -101,7 +92,6 @@ export default function OrderPage() {
           <span className="font-semibold tracking-wide underline underline-offset-4 decoration-white/10 group-hover:decoration-orange-500 transition-all">Continue Shopping</span>
         </Link>
 
-        {/* Success Toast */}
         <AnimatePresence>
           {cartToast && (
             <motion.div 
@@ -117,7 +107,6 @@ export default function OrderPage() {
         </AnimatePresence>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Cart Items Section */}
           <div className="flex-grow space-y-8">
             <div className="flex items-center justify-between border-b border-white/10 pb-6">
               <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic">YOUR CART</h1>
@@ -173,12 +162,10 @@ export default function OrderPage() {
             )}
           </div>
 
-          {/* Checkout & User Summary */}
           <div className="w-full lg:w-[28rem]">
             <div className="bg-[#111] border border-white/10 p-10 rounded-[3rem] sticky top-32 shadow-[0_30px_100px_rgba(0,0,0,0.5)] space-y-8">
               <h3 className="text-3xl font-black italic tracking-tight border-b border-white/10 pb-6 uppercase">SUMMARY</h3>
               
-              {/* Customer Info Section (Flipkart Style) */}
               <div className="border border-white/10 bg-black/40 rounded-[2rem] p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -223,7 +210,6 @@ export default function OrderPage() {
                 </AnimatePresence>
               </div>
 
-              {/* Order Totals */}
               <div className="space-y-5">
                 <div className="flex justify-between text-white/50 font-bold tracking-wide">
                   <span>SUBTOTAL</span>
@@ -247,7 +233,6 @@ export default function OrderPage() {
                 </div>
               </div>
 
-              {/* Coupon System */}
               <div className="space-y-4">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 ml-2">REDEEM COUPON</p>
                 <div className="flex gap-3">
@@ -272,7 +257,6 @@ export default function OrderPage() {
                 )}
               </div>
 
-              {/* Main CTA */}
               <button 
                 onClick={handleCheckout}
                 disabled={cartItems.length === 0}

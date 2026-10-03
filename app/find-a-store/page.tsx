@@ -16,7 +16,6 @@ export default function FindAStorePage() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, type: 'spring', bounce: 0.4 }}
           >
-            {/* Animated Icon */}
             <div className="relative w-32 h-32 mx-auto mb-10">
               <motion.div
                 animate={{ rotate: 360 }}
@@ -53,7 +52,6 @@ export default function FindAStorePage() {
                 Our team is working hard to bring this feature to you soon. Check back shortly!
               </p>
 
-              {/* Progress Indicators */}
               <div className="grid grid-cols-3 gap-4 mb-12 max-w-md mx-auto">
                 {[
                   { label: 'Design', pct: 100 },

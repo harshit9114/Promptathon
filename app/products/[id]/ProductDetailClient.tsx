@@ -8,6 +8,7 @@ import ProductBottleScroll from '@/components/ProductBottleScroll';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useAppContext } from '@/context/AppContext';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -16,22 +17,35 @@ export default function ProductDetailPage() {
 
   const productIndex = products.findIndex((p) => p.id === id);
   const [currentIndex, setCurrentIndex] = useState(productIndex >= 0 ? productIndex : 0);
+  const { cartItems, addToCart } = useAppContext();
   const [cartAdded, setCartAdded] = useState(false);
   const product = products[currentIndex];
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     document.body.style.setProperty('--product-gradient', product.gradient);
-    setCartAdded(false);
   }, [currentIndex, product]);
 
-  // Update URL when product changes
+  useEffect(() => {
+    setCartAdded(cartItems.some((item) => item.id === product?.id));
+  }, [cartItems, product]);
+
   useEffect(() => {
     router.replace(`/products/${products[currentIndex].id}`, { scroll: false });
   }, [currentIndex]);
 
   const handleNext = () => setCurrentIndex((prev) => (prev + 1) % products.length);
   const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.buyNowSection.price,
+      gradient: product.gradient,
+    });
+  };
 
   if (!product) {
     return (
@@ -48,7 +62,6 @@ export default function ProductDetailPage() {
     <main className="relative min-h-screen overflow-x-clip">
       <Navbar />
 
-      {/* Back to Products */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -64,7 +77,6 @@ export default function ProductDetailPage() {
         </Link>
       </motion.div>
 
-      {/* Sticky Product Switcher */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-black/40 backdrop-blur-xl border border-white/20 rounded-full px-5 py-3 shadow-2xl">
         <button
           onClick={handlePrev}
@@ -103,10 +115,8 @@ export default function ProductDetailPage() {
           transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="w-full"
         >
-          {/* Scroll Experience */}
           <ProductBottleScroll product={product} />
 
-          {/* Details Section */}
           <motion.section
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +147,6 @@ export default function ProductDetailPage() {
             </div>
           </motion.section>
 
-          {/* Commerce Section */}
           <motion.section
             id="commerce"
             initial={{ opacity: 0, y: 100 }}
@@ -180,7 +189,7 @@ export default function ProductDetailPage() {
               </div>
 
               <button
-                onClick={() => setCartAdded(true)}
+                onClick={handleAddToCart}
                 className={`text-xl sm:text-2xl md:text-3xl font-black px-10 sm:px-16 py-5 sm:py-6 rounded-full transition-all shadow-[0_0_50px_rgba(255,255,255,0.4)] tracking-wide ${
                   cartAdded
                     ? 'bg-green-500 text-white hover:bg-green-600'

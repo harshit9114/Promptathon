@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import Link from 'next/link';
 import { useAppContext } from '@/context/AppContext';
-import { User, ShoppingCart, LogOut, Mail, Settings, ChevronDown } from 'lucide-react';
+import { User, ShoppingCart, LogOut, ChevronDown } from 'lucide-react';
 
 export default function Navbar() {
   const { scrollY } = useScroll();
@@ -16,13 +16,6 @@ export default function Navbar() {
       setIsScrolled(latest > 50);
     });
   }, [scrollY]);
-
-  const scrollToCommerce = () => {
-    const el = document.getElementById('commerce');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   const handleLogout = () => {
     setIsLoggedIn(false);

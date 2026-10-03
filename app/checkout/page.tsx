@@ -15,7 +15,7 @@ type CheckoutStep = 'LOGIN' | 'ADDRESS' | 'SUMMARY' | 'PAYMENT';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { isLoggedIn, user, cartItems } = useAppContext();
+  const { isLoggedIn, user, cartItems, clearCart } = useAppContext();
   
   const [activeStep, setActiveStep] = useState<CheckoutStep>('ADDRESS');
   const [address, setAddress] = useState({ name: '', phone: '', pincode: '', locality: '', address: '' });
@@ -23,9 +23,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
 
-  // Authentication Guard
   useEffect(() => {
-    // Adding a short timeout to prevent flash of unauthenticated state before context loads
     const timer = setTimeout(() => {
       if (!isLoggedIn) {
         router.push('/login');
@@ -52,12 +50,11 @@ export default function CheckoutPage() {
     setTimeout(() => {
       setIsProcessing(false);
       setOrderSuccess(true);
-      // Empty cart in real app
-      // setCartItems([]); 
+      clearCart();
     }, 2500);
   };
 
-  if (!isLoggedIn) return <div className="min-h-screen bg-black" />; // Loading state for auth guard
+  if (!isLoggedIn) return <div className="min-h-screen bg-black" />;
 
   if (orderSuccess) {
     return (
@@ -103,10 +100,7 @@ export default function CheckoutPage() {
       <Navbar />
       
       <div className="pt-32 pb-20 px-4 sm:px-6 max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
-        {/* Left Area - Accordion Steps */}
         <div className="flex-grow space-y-6">
-          
-          {/* Step 1: LOGIN */}
           <div className="bg-[#111] border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
             <div className="px-6 py-5 flex items-center justify-between bg-white/5 cursor-pointer">
               <div className="flex items-center gap-4">
@@ -125,7 +119,6 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Step 2: DELIVERY ADDRESS */}
           <div className={`bg-[#111] border rounded-2xl overflow-hidden shadow-2xl transition-colors duration-300 ${activeStep === 'ADDRESS' ? 'border-orange-500/50 shadow-[0_0_30px_rgba(249,115,22,0.1)]' : 'border-white/10'}`}>
             <div 
               className={`px-6 py-5 flex items-center justify-between cursor-pointer transition-colors ${activeStep === 'ADDRESS' ? 'bg-orange-500/10' : activeStep === 'SUMMARY' || activeStep === 'PAYMENT' ? 'bg-white/5' : ''}`}
@@ -192,7 +185,6 @@ export default function CheckoutPage() {
             </AnimatePresence>
           </div>
 
-          {/* Step 3: ORDER SUMMARY */}
           <div className={`bg-[#111] border rounded-2xl overflow-hidden shadow-2xl transition-colors duration-300 ${activeStep === 'SUMMARY' ? 'border-orange-500/50 shadow-[0_0_30px_rgba(249,115,22,0.1)]' : 'border-white/10'}`}>
             <div 
               className={`px-6 py-5 flex items-center gap-4 cursor-pointer transition-colors ${activeStep === 'SUMMARY' ? 'bg-orange-500/10' : activeStep === 'PAYMENT' ? 'bg-white/5' : ''}`}
@@ -249,7 +241,6 @@ export default function CheckoutPage() {
             </AnimatePresence>
           </div>
 
-          {/* Step 4: PAYMENT OPTIONS */}
           <div className={`bg-[#111] border rounded-2xl overflow-hidden shadow-2xl transition-colors duration-300 ${activeStep === 'PAYMENT' ? 'border-orange-500/50 shadow-[0_0_30px_rgba(249,115,22,0.1)]' : 'border-white/10'}`}>
             <div className={`px-6 py-5 flex items-center gap-4 transition-colors ${activeStep === 'PAYMENT' ? 'bg-orange-500/10' : ''}`}>
               <span className={`w-8 h-8 rounded flex items-center justify-center font-black text-sm border shadow-lg transition-all ${activeStep === 'PAYMENT' ? 'bg-orange-500 text-white border-orange-400' : 'bg-white/10 text-white/50 border-white/5'}`}>
@@ -346,7 +337,6 @@ export default function CheckoutPage() {
           </div>
         </div>
 
-        {/* Right Area - Price Details fixed panel */}
         <div className="w-full lg:w-96 flex-shrink-0">
           <div className="bg-[#111] border border-white/10 rounded-2xl p-6 shadow-2xl sticky top-32">
             <h3 className="text-white/50 font-black tracking-widest uppercase text-sm border-b border-white/10 pb-4 mb-4">Price Details</h3>

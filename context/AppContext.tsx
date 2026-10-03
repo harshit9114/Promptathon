@@ -23,6 +23,7 @@ interface AppContextType {
   cartItems: CartItem[];
   addToCart: (product: CartItem) => void;
   removeFromCart: (id: string | number) => void;
+  clearCart: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -32,7 +33,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Load from local storage on mount
   useEffect(() => {
     const savedLogin = localStorage.getItem('isLoggedIn') === 'true';
     const savedUser = localStorage.getItem('user');
@@ -43,7 +43,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (savedCart) setCartItems(JSON.parse(savedCart));
   }, []);
 
-  // Save to local storage on change
   useEffect(() => {
     localStorage.setItem('isLoggedIn', isLoggedIn.toString());
     if (user) localStorage.setItem('user', JSON.stringify(user));
@@ -68,7 +67,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const cleanName = name.replace(/[0-9]/g, '') || email.split('@')[0].replace(/[0-9]/g, '');
     const newUser: UserProfile = { email, password, name: cleanName };
     saveRegisteredUsers([...users, newUser]);
-    // Auto-login after register
     setIsLoggedInState(true);
     setUser(newUser);
     return { success: true };
@@ -87,7 +85,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return { success: true };
   };
 
-  // Legacy setter (kept for compatibility)
   const setIsLoggedIn = (val: boolean, email?: string) => {
     setIsLoggedInState(val);
     if (!val) {
@@ -108,8 +105,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   return (
-    <AppContext.Provider value={{ isLoggedIn, user, setIsLoggedIn, register, login, cartItems, addToCart, removeFromCart }}>
+    <AppContext.Provider value={{ isLoggedIn, user, setIsLoggedIn, register, login, cartItems, addToCart, removeFromCart, clearCart }}>
       {children}
     </AppContext.Provider>
   );

@@ -41,7 +41,6 @@ export default function GiftCardsPage() {
           </p>
         </motion.div>
 
-        {/* Tab Switcher */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +71,6 @@ export default function GiftCardsPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Visual Gift Card */}
             <div className="relative max-w-lg mx-auto mb-12">
               <div
                 className="rounded-3xl p-8 border border-white/10 shadow-2xl relative overflow-hidden"
@@ -96,7 +94,6 @@ export default function GiftCardsPage() {
               </div>
             </div>
 
-            {/* Amount Selection */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-8">
               <h3 className="text-white font-bold text-xl mb-6">Choose Amount</h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
@@ -126,7 +123,6 @@ export default function GiftCardsPage() {
               </div>
             </div>
 
-            {/* Recipient Info */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-8">
               <h3 className="text-white font-bold text-xl mb-6">Recipient Details</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

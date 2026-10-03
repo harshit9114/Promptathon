@@ -24,7 +24,6 @@ export default function ProductBottleScroll({ product }: Props) {
   const canvasMathRef = useRef<{ drawWidth: number; drawHeight: number; offsetX: number; offsetY: number } | null>(null);
 
   useEffect(() => {
-    // Reset state on product change
     setInitialLoaded(false);
     imagesRef.current = new Array(frameCount).fill(null);
     canvasMathRef.current = null;
@@ -64,13 +63,12 @@ export default function ProductBottleScroll({ product }: Props) {
              resolve();
         }
         img.onerror = () => {
-             resolve(); // fail silently, animation will skip frame seamlessly
+             resolve();
         }
       });
     };
 
     const loadImages = async () => {
-       // Load first 10 immediately for fast interactive time
        const initialBatch = [];
        for (let i = 1; i <= Math.min(10, frameCount); i++) {
            initialBatch.push(fetchImage(i));
@@ -80,10 +78,8 @@ export default function ProductBottleScroll({ product }: Props) {
        
        setInitialLoaded(true);
 
-       // Render first frame immediately
        requestAnimationFrame(() => renderFrame(0));
 
-       // Sequence the rest in chunks so the browser isn't overloaded
        for (let i = 11; i <= frameCount; i += 5) {
            if (isCancelled) break;
            const batch = [];
@@ -120,14 +116,13 @@ export default function ProductBottleScroll({ product }: Props) {
   const renderFrame = (index: number) => {
     if (!canvasRef.current) return;
     const img = imagesRef.current[index];
-    if (!img) return; // If image isn't completely loaded yet, skip render
+    if (!img) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     if (!canvasMathRef.current) {
-        // Fallback calculation in case of race condition
         const canvasRatio = canvas.width / canvas.height;
         const imgRatio = img.width / img.height;
         let drawWidth = canvas.width;

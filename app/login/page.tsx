@@ -20,7 +20,6 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate login
     setTimeout(() => {
       setIsLoggedIn(true, email);
       setIsLoading(false);
@@ -28,11 +27,10 @@ export default function LoginPage() {
     }, 1500);
   };
 
-  if (isLoggedIn) return null; // Prevent flash of login form
+  if (isLoggedIn) return null;
 
   return (
     <main className="min-h-screen grid grid-cols-1 md:grid-cols-2 overflow-hidden bg-black text-white relative z-50">
-      {/* Left Side: Spline Design */}
       <section className="relative hidden md:flex items-center justify-center bg-[#0d0d0d] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <iframe 
@@ -45,7 +43,6 @@ export default function LoginPage() {
           />
         </div>
         
-        {/* Subtle Overlay Text */}
         <div className="relative z-10 text-center px-12 pointer-events-none">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -66,9 +63,7 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* Right Side: Login Form */}
       <section className="relative flex items-center justify-center p-8 lg:p-16 bg-transparent md:bg-[#020202]">
-        {/* Mobile background (spline) - lower priority for mobile but still visible if needed */}
         <div className="absolute inset-0 z-0 md:hidden opacity-40">
            <iframe 
             src="https://my.spline.design/ailoginpagesplinehackathon-cNT0q2UXZxliPBoZqATlgpXD/" 
@@ -83,7 +78,6 @@ export default function LoginPage() {
           animate={{ opacity: 1, x: 0 }}
           className="relative z-10 w-full max-w-md"
         >
-          {/* Back button */}
           <Link href="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-12 group">
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
             <span className="font-semibold tracking-wide">Back to Store</span>
@@ -161,7 +155,7 @@ export default function LoginPage() {
           </div>
 
           <p className="mt-12 text-center text-white/40 font-medium">
-            Don't have an account? <Link href="#" className="text-white font-bold hover:text-orange-400 underline underline-offset-4 decoration-2 decoration-orange-500/50">Register now</Link>
+            Don't have an account? <Link href="/register" className="text-white font-bold hover:text-orange-400 underline underline-offset-4 decoration-2 decoration-orange-500/50">Register now</Link>
           </p>
         </motion.div>
       </section>

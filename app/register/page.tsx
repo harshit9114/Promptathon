@@ -39,7 +39,6 @@ export default function RegisterPage() {
 
   return (
     <main className="min-h-screen grid grid-cols-1 md:grid-cols-2 overflow-hidden bg-black text-white relative z-50">
-      {/* Left Side: Spline Design */}
       <section className="relative hidden md:flex items-center justify-center bg-[#0d0d0d] overflow-hidden border-r border-white/5 shadow-[20px_0_50px_rgba(0,0,0,0.5)]">
         <div className="absolute inset-0 z-0">
           <iframe 
@@ -53,9 +52,7 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      {/* Right Side: Register Form */}
       <section className="relative z-20 flex items-center justify-center p-8 lg:p-16 bg-[#111111] border-l border-white/10 shadow-[-20px_0_50px_rgba(0,0,0,0.5)]">
-        {/* Mobile background (spline) */}
         <div className="absolute inset-0 z-0 md:hidden opacity-40">
            <iframe 
             src="https://my.spline.design/ailoginpagesplinehackathon-cNT0q2UXZxliPBoZqATlgpXD/" 

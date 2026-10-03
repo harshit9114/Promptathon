@@ -8,19 +8,15 @@ interface Props {
 }
 
 export default function ProductTextOverlays({ product, scrollYProgress }: Props) {
-  // Section 1: 0 to 0.2
   const opacity1 = useTransform(scrollYProgress, [0, 0.1, 0.2, 0.25], [1, 1, 1, 0]);
   const y1 = useTransform(scrollYProgress, [0, 0.2, 0.25], [0, 0, -50]);
 
-  // Section 2: 0.25 to 0.45
   const opacity2 = useTransform(scrollYProgress, [0.2, 0.25, 0.4, 0.45], [0, 1, 1, 0]);
   const y2 = useTransform(scrollYProgress, [0.2, 0.25, 0.4, 0.45], [50, 0, 0, -50]);
 
-  // Section 3: 0.45 to 0.7
   const opacity3 = useTransform(scrollYProgress, [0.4, 0.45, 0.65, 0.7], [0, 1, 1, 0]);
   const y3 = useTransform(scrollYProgress, [0.4, 0.45, 0.65, 0.7], [50, 0, 0, -50]);
 
-  // Section 4: 0.7 to 1
   const opacity4 = useTransform(scrollYProgress, [0.65, 0.7, 0.9, 1], [0, 1, 1, 0]);
   const y4 = useTransform(scrollYProgress, [0.65, 0.7, 0.9, 1], [50, 0, 0, -50]);
 

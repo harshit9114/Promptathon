@@ -5,7 +5,6 @@ const sourceDir = path.join(__dirname, 'ezgif-4aca55ca8a0ffb94-jpg');
 const publicDir = path.join(__dirname, 'public');
 const products = ['mango', 'chocolate', 'pomegranate'];
 
-// Ensure public/images directories exist
 for (const product of products) {
   const productDir = path.join(publicDir, 'images', product);
   if (!fs.existsSync(productDir)) {
@@ -13,12 +12,9 @@ for (const product of products) {
   }
 }
 
-// Read all files from source
 const files = fs.readdirSync(sourceDir).filter(f => f.endsWith('.jpg')).sort();
 
-// Copy and rename
 files.forEach((file) => {
-  // Extract number from 'ezgif-frame-001.jpg'
   const numStr = file.match(/(\d+)/)[1];
   const num = parseInt(numStr, 10);
   

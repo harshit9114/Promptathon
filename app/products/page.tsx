@@ -39,13 +39,11 @@ export default function AllProductsPage() {
                   className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl cursor-pointer"
                   style={{ background: `linear-gradient(160deg, ${product.themeColor}22 0%, #0a0a0a 100%)` }}
                 >
-                  {/* Glow effect on hover */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-3xl blur-xl"
                     style={{ background: product.gradient }}
                   />
 
-                  {/* Product Image */}
                   <div className="relative h-72 flex items-center justify-center overflow-hidden">
                     <div
                       className="absolute inset-0"
@@ -59,7 +57,6 @@ export default function AllProductsPage() {
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
                     />
-                    {/* Animated shine */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                       style={{
                         background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%)',
@@ -68,7 +65,6 @@ export default function AllProductsPage() {
                     />
                   </div>
 
-                  {/* Product Info */}
                   <div className="p-6 relative z-10">
                     <div className="flex items-start justify-between mb-2">
                       <h2 className="text-xl font-black text-white leading-tight">{product.name}</h2>
@@ -81,7 +77,6 @@ export default function AllProductsPage() {
                     </div>
                     <p className="text-sm text-white/50 mb-4">{product.subName}</p>
 
-                    {/* Features */}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {product.features.map((feat, j) => (
                         <span
@@ -94,7 +89,6 @@ export default function AllProductsPage() {
                       ))}
                     </div>
 
-                    {/* CTA */}
                     <div
                       className="w-full py-3 rounded-2xl text-center font-bold text-sm tracking-widest uppercase transition-all duration-300 group-hover:shadow-lg border border-white/10"
                       style={{

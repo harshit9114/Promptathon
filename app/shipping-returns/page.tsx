@@ -109,7 +109,6 @@ export default function ShippingReturnsPage() {
           </p>
         </motion.div>
 
-        {/* Quick Stats Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,7 +132,6 @@ export default function ShippingReturnsPage() {
           ))}
         </motion.div>
 
-        {/* Accordion Sections */}
         <div className="space-y-6">
           {sections.map((section, si) => (
             <motion.div
@@ -143,7 +141,6 @@ export default function ShippingReturnsPage() {
               transition={{ duration: 0.6, delay: 0.3 + si * 0.1 }}
               className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden"
             >
-              {/* Section Header */}
               <div
                 className="flex items-center gap-4 px-8 py-6 border-b border-white/10"
                 style={{ background: `${section.color}11` }}
@@ -152,7 +149,6 @@ export default function ShippingReturnsPage() {
                 <h2 className="text-white text-xl font-black">{section.title}</h2>
               </div>
 
-              {/* Items */}
               <div className="divide-y divide-white/5">
                 {section.items.map((item, ii) => {
                   const key = `${si}-${ii}`;
@@ -192,7 +188,6 @@ export default function ShippingReturnsPage() {
           ))}
         </div>
 
-        {/* Still have questions */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

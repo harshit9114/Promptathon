@@ -40,7 +40,6 @@ export default function StorePage() {
     <main className="relative min-h-screen overflow-x-clip">
       <Navbar />
 
-      {/* Sticky Product Switcher */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-black/40 backdrop-blur-xl border border-white/20 rounded-full px-5 py-3 shadow-2xl">
         <button
           onClick={handlePrev}
@@ -79,10 +78,8 @@ export default function StorePage() {
           transition={{ duration: 0.8, ease: "easeInOut" }}
           className="w-full"
         >
-          {/* Scroll Experience */}
           <ProductBottleScroll product={product} />
 
-          {/* Details Section */}
           <motion.section 
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +110,6 @@ export default function StorePage() {
             </div>
           </motion.section>
 
-          {/* Commerce Section */}
           <motion.section 
             id="commerce"
             initial={{ opacity: 0, y: 100 }}

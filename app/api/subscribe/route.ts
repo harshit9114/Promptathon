@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Email is required' }, { status: 400 });
   }
 
-  // Configure the transporter using env variables
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
