@@ -17,7 +17,7 @@ interface UserProfile {
 interface AppContextType {
   isLoggedIn: boolean;
   user: UserProfile | null;
-  setIsLoggedIn: (val: boolean, email?: string) => void;
+  setIsLoggedIn: (val: boolean) => void;
   register: (email: string, password: string, name: string) => { success: boolean; error?: string };
   login: (email: string, password: string) => { success: boolean; error?: string };
   cartItems: CartItem[];
@@ -85,7 +85,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return { success: true };
   };
 
-  const setIsLoggedIn = (val: boolean, email?: string) => {
+  const setIsLoggedIn = (val: boolean) => {
     setIsLoggedInState(val);
     if (!val) {
       setUser(null);

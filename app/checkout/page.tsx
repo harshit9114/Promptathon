@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, MapPin, Truck, CreditCard, User, ChevronRight, ShieldCheck, ArrowLeft, Loader2, CheckCircle2 } from 'lucide-react';
+import { Check, ShieldCheck, Loader2, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               </div>
-              <Link href="/login" className="text-orange-400 text-sm font-bold uppercase tracking-widest hover:text-orange-300">Change</Link>
+              <Link href="/" className="text-orange-400 text-sm font-bold uppercase tracking-widest hover:text-orange-300">Change</Link>
             </div>
           </div>
 

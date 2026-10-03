@@ -1,12 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>'"]/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;',
+  })[character] || character);
+
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
 
-  if (!email) {
+  if (typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'Email is required' }, { status: 400 });
   }
+
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    return NextResponse.json({ error: 'Email service is not configured' }, { status: 503 });
+  }
+
+  const safeEmail = escapeHtml(email);
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -35,7 +50,7 @@ export async function POST(req: NextRequest) {
             </p>
             <div style="margin: 32px 0; padding: 20px; background: #1a1a1a; border-radius: 12px; border-left: 4px solid #f97316;">
               <p style="margin: 0; font-size: 14px; color: #888;">Your registered email</p>
-              <p style="margin: 4px 0 0; font-weight: 700; color: #fff;">${email}</p>
+              <p style="margin: 4px 0 0; font-weight: 700; color: #fff;">${safeEmail}</p>
             </div>
             <p style="color: #aaa; font-size: 14px;">
               In the meantime, explore our premium range of cold-pressed juices at 
